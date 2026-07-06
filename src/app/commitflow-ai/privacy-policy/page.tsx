@@ -350,6 +350,17 @@ export default function CommitFlowPrivacyPolicy() {
                 founder@techiesapien.com
               </a>
             </li>
+            <li>
+              Website:{" "}
+              <a
+                href="https://techiesapien.com"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-electric-2 underline-offset-4 hover:underline"
+              >
+                techiesapien.com
+              </a>
+            </li>
             <li>Developer: Techie Sapien</li>
           </ul>
         </Section>
