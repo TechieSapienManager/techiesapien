@@ -110,6 +110,74 @@ export const audienceContent = {
   marquee: ["1B+ Views", "122K Subscribers", "145K+ Followers", "959 Videos", "Verified ✓"],
 };
 
+/* -------------------- Apps / selected work (§5) -------------------- */
+
+export type AppId = "scanline-qr" | "commitflow-ai" | "logo-match-cut";
+
+export interface AppProject {
+  id: AppId;
+  name: string;
+  category: string;
+  description: string;
+  features: string[];
+  status: "live" | "coming";
+  statusLabel: string;
+  accent: string;
+  /** Play Store URL — fill in when available. */
+  playStoreUrl?: string;
+  /** On-site privacy policy, where one exists. */
+  privacyUrl?: string;
+  /** Email used for the "notify me" waitlist on unreleased apps. */
+  notifyEmail?: string;
+}
+
+export const appsContent = {
+  eyebrow: "Selected Work",
+  title: "Real apps, shipped.",
+  subtitle:
+    "Products I've designed, built, and released — from live Play Store apps to a SaaS tool in the making.",
+};
+
+export const apps: AppProject[] = [
+  {
+    id: "scanline-qr",
+    name: "Scanline QR",
+    category: "QR Scanner & Generator",
+    description:
+      "An advanced QR scanner with a deep set of QR tools — scan, generate, keep a history, and more.",
+    features: ["Scan", "Generate", "History"],
+    status: "live",
+    statusLabel: "Live on Google Play",
+    accent: "#22d3ee",
+    // playStoreUrl: fill in when available
+  },
+  {
+    id: "commitflow-ai",
+    name: "CommitFlow AI",
+    category: "Productivity · AI",
+    description:
+      "A GitHub-style productivity app: notes, to-dos, a Pomodoro timer, a contribution graph, and an AI chat feature.",
+    features: ["Notes & to-dos", "Pomodoro", "Contribution graph", "AI chat"],
+    status: "live",
+    statusLabel: "Live on Google Play",
+    accent: "#1e63e9",
+    privacyUrl: "/commitflow-ai/privacy-policy",
+    // playStoreUrl: fill in when available
+  },
+  {
+    id: "logo-match-cut",
+    name: "Logo Match Cut",
+    category: "SaaS · Web App",
+    description:
+      "A match-cut logo tool, built as a web app. Currently in active development.",
+    features: ["Match-cut engine", "Web-based", "In development"],
+    status: "coming",
+    statusLabel: "Coming soon",
+    accent: "#8b7bff",
+    notifyEmail: "founder@techiesapien.com",
+  },
+];
+
 /* -------------------- About (§1, §6b) -------------------- */
 
 export type IdentityKey = "creator" | "builder" | "ai" | "professional";
