@@ -2,6 +2,7 @@ import { Hero } from "@/components/sections/Hero";
 import { AudienceStrip } from "@/components/sections/AudienceStrip";
 import { About } from "@/components/sections/About";
 import { Apps } from "@/components/sections/Apps";
+import { Content } from "@/components/sections/Content";
 import { AutomationLab } from "@/components/sections/automation-lab";
 import { AIPlayground } from "@/components/sections/ai-playground";
 import { AchievementsTimeline } from "@/components/sections/achievements-timeline";
@@ -16,6 +17,7 @@ export default function Home() {
       <AudienceStrip />
       <About />
       <Apps />
+      <Content />
       <AutomationLab />
       <AIPlayground />
       <AchievementsTimeline />

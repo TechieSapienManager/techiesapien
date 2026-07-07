@@ -317,3 +317,50 @@ export const alsoOn: { id: PlatformId; name: string; url: string }[] = [
   { id: "linkedin", name: "LinkedIn", url: socials.linkedin },
   { id: "github", name: "GitHub", url: socials.github },
 ];
+
+/* -------------------- Content (§5) -------------------- */
+
+export interface ContentChannel {
+  id: "youtube" | "instagram";
+  name: string;
+  handle: string;
+  url: string;
+  stats: string[];
+  description: string;
+  cta: string;
+  accent: string;
+  featured?: boolean;
+}
+
+export const contentSection = {
+  eyebrow: "Content",
+  title: "Show, don't tell.",
+  subtitle:
+    "959 videos and 1B+ views — teaching and showing AI, apps, and next-gen tech to an audience of 145K+.",
+  topics: ["AI", "Apps", "Automation", "AI Filmmaking"],
+  channels: [
+    {
+      id: "youtube",
+      name: "YouTube",
+      handle: "@TechieSapien",
+      url: socials.youtube,
+      stats: ["122K subscribers", "959 videos", "1B+ views"],
+      description:
+        "Long-form and short-form videos on AI, tech, apps, and building in public.",
+      cta: "Watch on YouTube",
+      accent: "#ff4d4d",
+      featured: true,
+    },
+    {
+      id: "instagram",
+      name: "Instagram",
+      handle: "@techie.sapien",
+      url: socials.instagram,
+      stats: ["22.7K followers"],
+      description:
+        "Reels, quick AI & tech breakdowns, and behind-the-scenes of the build.",
+      cta: "View Reels",
+      accent: "#d946a6",
+    },
+  ] as ContentChannel[],
+};
