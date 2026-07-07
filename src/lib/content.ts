@@ -98,3 +98,99 @@ export const socials = {
   linkedin: "https://linkedin.com/in/techie-sapien-631660420",
   github: "https://github.com/TechieSapienManager",
 } as const;
+
+/* -------------------- Proof / audience strip (§2, §3, §4) -------------------- */
+
+export const audienceContent = {
+  eyebrow: "The Proof",
+  title: "An audience of 145K+.",
+  subtitle:
+    "Over a billion views across YouTube, Instagram, and beyond — built by showing the real work, not just talking about it.",
+  // Repeating ticker line (all real, from §3).
+  marquee: ["1B+ Views", "122K Subscribers", "145K+ Followers", "959 Videos", "Verified ✓"],
+};
+
+export type PlatformId =
+  | "youtube"
+  | "instagram"
+  | "x"
+  | "threads"
+  | "facebook"
+  | "linkedin"
+  | "github";
+
+export interface Platform {
+  id: PlatformId;
+  name: string;
+  handle: string;
+  url: string;
+  /** Numeric follower/subscriber count that animates up. */
+  value: number;
+  /** Unit appended to the count, e.g. "K". */
+  unit: string;
+  /** Decimal places for the count (e.g. 22.7K → 1). */
+  decimals?: number;
+  metric: string;
+  verified?: boolean;
+  /** Optional secondary detail, e.g. "959 videos". */
+  extra?: string;
+}
+
+// Lead platforms with real, defensible follower counts (§3).
+export const platforms: Platform[] = [
+  {
+    id: "youtube",
+    name: "YouTube",
+    handle: "@TechieSapien",
+    url: socials.youtube,
+    value: 122,
+    unit: "K",
+    metric: "subscribers",
+    extra: "959 videos",
+  },
+  {
+    id: "instagram",
+    name: "Instagram",
+    handle: "@techie.sapien",
+    url: socials.instagram,
+    value: 22.7,
+    unit: "K",
+    decimals: 1,
+    metric: "followers",
+    verified: true,
+  },
+  {
+    id: "x",
+    name: "X",
+    handle: "@TechieSapien",
+    url: socials.x,
+    value: 175,
+    unit: "",
+    metric: "followers",
+    verified: true,
+  },
+  {
+    id: "threads",
+    name: "Threads",
+    handle: "@techie.sapien",
+    url: socials.threads,
+    value: 210,
+    unit: "",
+    metric: "followers",
+  },
+  {
+    id: "facebook",
+    name: "Facebook",
+    handle: "Techie Sapien",
+    url: socials.facebook,
+    value: 640,
+    unit: "",
+    metric: "followers",
+  },
+];
+
+// Additional real profiles without public follower counts (shown as links).
+export const alsoOn: { id: PlatformId; name: string; url: string }[] = [
+  { id: "linkedin", name: "LinkedIn", url: socials.linkedin },
+  { id: "github", name: "GitHub", url: socials.github },
+];

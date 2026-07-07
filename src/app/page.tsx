@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/Hero";
+import { AudienceStrip } from "@/components/sections/AudienceStrip";
 import { ProjectShowcase } from "@/components/sections/project-showcase";
 import { AutomationLab } from "@/components/sections/automation-lab";
 import { AIPlayground } from "@/components/sections/ai-playground";
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <AudienceStrip />
       <ProjectShowcase />
       <AutomationLab />
       <AIPlayground />
