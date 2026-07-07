@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
 
-import { navLinks, siteConfig } from "@/data/site";
+import { navLinks, navCta, site } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { useLenis } from "@/components/providers/smooth-scroll-provider";
 
@@ -20,15 +19,27 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleNavigate = (href: string) => {
+  // Lock body scroll while the mobile overlay is open.
+  useEffect(() => {
+    if (open) {
+      lenis?.stop();
+      document.body.style.overflow = "hidden";
+    } else {
+      lenis?.start();
+      document.body.style.overflow = "";
+    }
+    return () => {
+      lenis?.start();
+      document.body.style.overflow = "";
+    };
+  }, [open, lenis]);
+
+  const navigate = (href: string) => {
     setOpen(false);
     const el = document.querySelector(href);
     if (!el) return;
-    if (lenis) {
-      lenis.scrollTo(el as HTMLElement, { offset: -80, duration: 1.4 });
-    } else {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    if (lenis) lenis.scrollTo(el as HTMLElement, { offset: -80, duration: 1.4 });
+    else el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -39,72 +50,103 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
+        {/* Logo */}
         <button
-          onClick={() => handleNavigate("#top")}
-          className={cn(
-            "glass flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold tracking-tight transition-all duration-500",
-            scrolled ? "opacity-100" : "opacity-90"
-          )}
+          onClick={() => navigate("#top")}
+          className="group flex items-center gap-2 font-display text-[22px] font-semibold tracking-tight text-foreground"
+          data-cursor-hover
         >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-electric opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-electric" />
+          <span
+            aria-hidden
+            className="text-brand transition-transform duration-500 group-hover:rotate-90"
+            style={{ color: "var(--brand)" }}
+          >
+            ✳
           </span>
-          <span className="font-display">{siteConfig.name}</span>
+          {site.name}
         </button>
 
-        <nav className="glass hidden items-center gap-1 rounded-full px-2 py-2 lg:flex">
+        {/* Center links */}
+        <nav className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <button
               key={link.href}
-              onClick={() => handleNavigate(link.href)}
-              className="rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-muted transition-colors hover:bg-white/5 hover:text-foreground"
+              onClick={() => navigate(link.href)}
+              className="text-sm font-medium text-foreground/90 transition-opacity duration-200 hover:opacity-60"
+              data-cursor-hover
             >
               {link.label}
             </button>
           ))}
         </nav>
 
+        {/* Right CTA */}
         <button
-          onClick={() => handleNavigate("#contact")}
-          className="glass hidden rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-wider text-foreground transition-colors hover:border-electric hover:text-electric-2 lg:block"
+          onClick={() => navigate(navCta.href)}
+          className="group relative hidden text-sm font-medium text-foreground md:inline-block"
+          data-cursor-hover
         >
-          Initiate Contact
+          {navCta.label}
+          <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-100 bg-foreground/70 transition-transform duration-300 group-hover:scale-x-0" />
+          <span
+            className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+            style={{ background: "var(--brand)" }}
+          />
         </button>
 
+        {/* Mobile hamburger */}
         <button
           onClick={() => setOpen((v) => !v)}
-          className="glass rounded-full p-2.5 lg:hidden"
-          aria-label="Toggle menu"
+          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
         >
-          {open ? <X size={18} /> : <Menu size={18} />}
+          <motion.span
+            animate={open ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="block h-0.5 w-6 bg-foreground"
+          />
+          <motion.span
+            animate={open ? { opacity: 0 } : { opacity: 1 }}
+            transition={{ duration: 0.2 }}
+            className="block h-0.5 w-6 bg-foreground"
+          />
+          <motion.span
+            animate={open ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="block h-0.5 w-6 bg-foreground"
+          />
         </button>
       </div>
 
+      {/* Mobile fullscreen overlay */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="glass-strong mx-4 mt-3 flex flex-col gap-1 rounded-2xl p-3 lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 md:hidden"
+            style={{
+              background: "color-mix(in srgb, var(--bg) 95%, transparent)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+            }}
           >
-            {navLinks.map((link) => (
-              <button
+            {[...navLinks, navCta].map((link, i) => (
+              <motion.button
                 key={link.href}
-                onClick={() => handleNavigate(link.href)}
-                className="rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition-colors hover:bg-white/5 hover:text-foreground"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 16 }}
+                transition={{ delay: 0.08 + i * 0.07, duration: 0.4 }}
+                onClick={() => navigate(link.href)}
+                className="font-display text-[32px] font-medium text-foreground"
               >
                 {link.label}
-              </button>
+              </motion.button>
             ))}
-            <button
-              onClick={() => handleNavigate("#contact")}
-              className="mt-1 rounded-xl bg-electric px-4 py-3 text-left text-sm font-semibold text-white"
-            >
-              Initiate Contact
-            </button>
           </motion.div>
         )}
       </AnimatePresence>
