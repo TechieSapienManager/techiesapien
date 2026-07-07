@@ -110,6 +110,61 @@ export const audienceContent = {
   marquee: ["1B+ Views", "122K Subscribers", "145K+ Followers", "959 Videos", "Verified ✓"],
 };
 
+/* -------------------- About (§1, §6b) -------------------- */
+
+export type IdentityKey = "creator" | "builder" | "ai" | "professional";
+
+export interface Identity {
+  key: IdentityKey;
+  title: string;
+  description: string;
+}
+
+export const aboutContent = {
+  eyebrow: "About",
+  title: "Creator. Builder. AI Filmmaker.",
+  lead: "An AI & tech creator who builds real apps, automations, and AI-generated visuals — and shares the entire journey with an audience of 145K+.",
+  bio: site.description,
+  location: site.location,
+  // Real paid role (§6b) — a credibility marker, kept factual.
+  current: {
+    label: "Currently creating AI-driven visuals & ads for Brava Studio",
+    href: "https://bravastudion.ru",
+  },
+  identities: [
+    {
+      key: "creator",
+      title: "A Creator",
+      description:
+        "145K+ followers and 1B+ views — teaching and showing AI and next-gen tech.",
+    },
+    {
+      key: "builder",
+      title: "A Builder",
+      description:
+        "Shipped Android apps to the Play Store, and building web & SaaS products.",
+    },
+    {
+      key: "ai",
+      title: "An AI Creative",
+      description:
+        "AI ads, commercials, and CGI visuals through Revyon AI Studio.",
+    },
+    {
+      key: "professional",
+      title: "A Professional",
+      description:
+        "Creating AI-driven visuals, ads, posters & motion design for Brava Studio.",
+    },
+  ] as Identity[],
+  image: {
+    src: "/hero/techie-sapien.webp",
+    alt: "Techie Sapien, AI & tech creator based in Chhatarpur, India.",
+    width: 2400,
+    height: 1340,
+  },
+};
+
 export type PlatformId =
   | "youtube"
   | "instagram"
