@@ -318,6 +318,48 @@ export const alsoOn: { id: PlatformId; name: string; url: string }[] = [
   { id: "github", name: "GitHub", url: socials.github },
 ];
 
+/* -------------------- Revyon AI Studio (§6) -------------------- */
+
+export type CapabilityKey = "commercials" | "branding" | "motion" | "cgi";
+
+export interface Capability {
+  key: CapabilityKey;
+  title: string;
+  description: string;
+}
+
+export const revyonContent = {
+  eyebrow: "Revyon AI Studio",
+  handle: "@revyon.aistudio",
+  instagramUrl: "https://instagram.com/revyon.aistudio",
+  status: "Available for projects",
+  title: "AI-crafted visuals for modern brands.",
+  subtitle:
+    "Revyon AI Studio is my creative arm — AI commercials, branding, motion design, and CGI visuals for brands ready to move at the speed of AI.",
+  capabilities: [
+    {
+      key: "commercials",
+      title: "AI Commercials",
+      description: "Cinematic ads, generated and directed with AI.",
+    },
+    {
+      key: "branding",
+      title: "Branding",
+      description: "Identity and brand visuals with an AI-native workflow.",
+    },
+    {
+      key: "motion",
+      title: "Motion Design",
+      description: "Kinetic, animated visuals that move and breathe.",
+    },
+    {
+      key: "cgi",
+      title: "CGI Visuals",
+      description: "Product and concept CGI, rendered by AI.",
+    },
+  ] as Capability[],
+};
+
 /* -------------------- Content (§5) -------------------- */
 
 export interface ContentChannel {
