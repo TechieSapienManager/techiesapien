@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html, Line } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -74,33 +74,41 @@ function Planet({ planet, index }: { planet: SocialPlanet; index: number }) {
 }
 
 function CenterAvatar() {
+  // Radial mask fades the avatar's blue studio backdrop into the dark scene,
+  // so the center reads as the person emerging from space, not a glowing disc.
+  const mask =
+    "radial-gradient(circle at 50% 43%, #000 40%, rgba(0,0,0,0.35) 58%, transparent 70%)";
   return (
     <group>
-      <pointLight color="#7fa6ff" intensity={40} distance={20} />
-      <Html center distanceFactor={11} zIndexRange={[6, 0]}>
-        <div className="pointer-events-none relative flex h-[190px] w-[190px] items-center justify-center">
-          {/* Glow */}
-          <div
-            className="absolute inset-[-22%] rounded-full blur-2xl"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(30,99,233,0.75), rgba(34,211,238,0.28) 55%, transparent 75%)",
-            }}
-          />
-          <span className="absolute inset-0 animate-pulse-glow rounded-full" style={{ boxShadow: "0 0 60px 12px rgba(30,99,233,0.35)" }} />
-          {/* Avatar */}
+      <pointLight color="#7fa6ff" intensity={18} distance={22} />
+      <Html center distanceFactor={12} zIndexRange={[6, 0]}>
+        <div style={{ width: 108, height: 108 }} className="pointer-events-none">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/avatar.png"
             alt="Techie Sapien"
             draggable={false}
-            className="relative h-[150px] w-[150px] rounded-full border-2 border-white/20 object-cover"
-            style={{ boxShadow: "0 0 45px 6px rgba(30,99,233,0.55)" }}
+            style={{
+              width: 108,
+              height: 108,
+              maskImage: mask,
+              WebkitMaskImage: mask,
+            }}
+            className="rounded-full object-cover"
           />
         </div>
       </Html>
     </group>
   );
+}
+
+/** Aims the camera slightly below the origin so the system sits a touch high. */
+function Rig() {
+  const { camera } = useThree();
+  useEffect(() => {
+    camera.lookAt(0, -0.3, 0);
+  }, [camera]);
+  return null;
 }
 
 function Scene() {
@@ -114,15 +122,18 @@ function Scene() {
 
   return (
     <>
-      <ambientLight intensity={0.3} />
-      <CenterAvatar />
-      <group ref={groupRef} rotation={[0.45, 0, 0]}>
-        {socialPlanets.map((planet) => (
-          <OrbitRing key={`ring-${planet.id}`} radius={planet.distance} />
-        ))}
-        {socialPlanets.map((planet, i) => (
-          <Planet key={planet.id} planet={planet} index={i} />
-        ))}
+      <Rig />
+      <ambientLight intensity={0.35} />
+      <group position={[0, 0, 0]}>
+        <CenterAvatar />
+        <group ref={groupRef} rotation={[0.36, 0, 0]}>
+          {socialPlanets.map((planet) => (
+            <OrbitRing key={`ring-${planet.id}`} radius={planet.distance} />
+          ))}
+          {socialPlanets.map((planet, i) => (
+            <Planet key={planet.id} planet={planet} index={i} />
+          ))}
+        </group>
       </group>
     </>
   );
@@ -149,7 +160,7 @@ export function SocialUniverse({ className }: { className?: string }) {
         dpr={[1, 1.5]}
         frameloop={visible ? "always" : "never"}
         gl={{ antialias: true, powerPreference: "high-performance" }}
-        camera={{ fov: 50, position: [0, 6, 13.5] }}
+        camera={{ fov: 50, position: [0, 6.5, 16] }}
       >
         <Scene />
       </Canvas>

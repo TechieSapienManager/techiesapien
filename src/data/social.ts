@@ -21,7 +21,7 @@ export const socialPlanets: SocialPlanet[] = [
     href: "https://youtube.com/@TechieSapien",
     color: "#ff4d4d",
     size: 0.78,
-    distance: 2.6,
+    distance: 3.7,
     speed: 0.1,
   },
   {
@@ -32,7 +32,7 @@ export const socialPlanets: SocialPlanet[] = [
     href: "https://instagram.com/techie.sapien",
     color: "#d946a6",
     size: 0.62,
-    distance: 3.4,
+    distance: 4.8,
     speed: 0.13,
   },
   {
@@ -43,7 +43,7 @@ export const socialPlanets: SocialPlanet[] = [
     href: "https://x.com/TechieSapien",
     color: "#f5f7fb",
     size: 0.48,
-    distance: 4.0,
+    distance: 5.9,
     speed: 0.18,
   },
   {
@@ -54,7 +54,7 @@ export const socialPlanets: SocialPlanet[] = [
     href: "https://threads.com/@techie.sapien",
     color: "#c7d0e0",
     size: 0.46,
-    distance: 4.6,
+    distance: 6.9,
     speed: 0.15,
   },
   {
@@ -65,7 +65,7 @@ export const socialPlanets: SocialPlanet[] = [
     href: "https://facebook.com/61582933821004",
     color: "#1877f2",
     size: 0.5,
-    distance: 5.2,
+    distance: 7.9,
     speed: 0.11,
   },
   {
@@ -75,7 +75,7 @@ export const socialPlanets: SocialPlanet[] = [
     href: "https://linkedin.com/in/techie-sapien-631660420",
     color: "#0a66c2",
     size: 0.55,
-    distance: 5.8,
+    distance: 8.9,
     speed: 0.09,
   },
   {
@@ -85,7 +85,7 @@ export const socialPlanets: SocialPlanet[] = [
     href: "https://github.com/TechieSapienManager",
     color: "#f5f7fb",
     size: 0.52,
-    distance: 6.4,
+    distance: 9.8,
     speed: 0.12,
   },
 ];

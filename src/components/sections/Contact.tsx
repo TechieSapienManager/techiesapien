@@ -9,7 +9,7 @@ import { brandIcons } from "@/components/icons/brand-icons";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 const bootLines = [
-  "$ ssh guest@techiesapien",
+  "$ ./open_channel.sh",
   "> loading identity module... done",
   `> role: ${contactContent.role}`,
   `> location: ${contactContent.location}`,
@@ -79,7 +79,7 @@ export function Contact() {
               <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
               <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
               <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-              <span className="ml-3 text-xs text-muted">guest@techiesapien: ~/contact</span>
+              <span className="ml-3 text-xs text-muted">techiesapien: ~/contact</span>
             </div>
 
             <div className="p-6 text-sm sm:p-8">

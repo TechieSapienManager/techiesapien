@@ -24,7 +24,7 @@ export function SocialUniverseSection() {
         />
 
         <LazyMount
-          className="relative mt-16 h-[520px] w-full overflow-hidden rounded-3xl border border-border sm:h-[600px]"
+          className="relative mt-16 h-[500px] w-full overflow-hidden rounded-3xl border border-border sm:h-[580px]"
           fallback={
             <div className="flex h-full w-full items-center justify-center">
               <div className="flex flex-wrap justify-center gap-3 px-6">
