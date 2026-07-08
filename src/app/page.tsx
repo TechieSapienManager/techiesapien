@@ -8,7 +8,7 @@ import { AutomationLab } from "@/components/sections/AutomationLab";
 import { Services } from "@/components/sections/Services";
 import { Timeline } from "@/components/sections/Timeline";
 import { SocialUniverseSection } from "@/components/sections/social-universe-section";
-import { ContactTerminal } from "@/components/sections/contact-terminal";
+import { Contact } from "@/components/sections/Contact";
 
 export default function Home() {
   return (
@@ -23,7 +23,7 @@ export default function Home() {
       <Services />
       <Timeline />
       <SocialUniverseSection />
-      <ContactTerminal />
+      <Contact />
     </>
   );
 }

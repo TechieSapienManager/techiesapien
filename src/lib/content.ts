@@ -601,3 +601,28 @@ export const contentSection = {
     },
   ] as ContentChannel[],
 };
+
+/* -------------------- Contact (§11) -------------------- */
+
+export const contactContent = {
+  eyebrow: "Contact",
+  title: "Open a channel.",
+  subtitle: "An app, an automation, or an AI visual — tell me what you're building.",
+  email: site.email,
+  role: site.role,
+  location: site.location,
+  status: "Available for select projects",
+};
+
+export const contactSocials: {
+  id: PlatformId;
+  label: string;
+  handle: string;
+  url: string;
+}[] = [
+  { id: "youtube", label: "YouTube", handle: "@TechieSapien", url: socials.youtube },
+  { id: "instagram", label: "Instagram", handle: "@techie.sapien", url: socials.instagram },
+  { id: "x", label: "X", handle: "@TechieSapien", url: socials.x },
+  { id: "linkedin", label: "LinkedIn", handle: "in/techie-sapien", url: socials.linkedin },
+  { id: "github", label: "GitHub", handle: "TechieSapienManager", url: socials.github },
+];
