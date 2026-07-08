@@ -318,6 +318,86 @@ export const alsoOn: { id: PlatformId; name: string; url: string }[] = [
   { id: "github", name: "GitHub", url: socials.github },
 ];
 
+/* -------------------- Automation Lab (§7) -------------------- */
+
+export type FlowNodeType =
+  | "trigger"
+  | "http"
+  | "ai"
+  | "filter"
+  | "transform"
+  | "action"
+  | "notify";
+
+export interface FlowNode {
+  type: FlowNodeType;
+  label: string;
+  note: string;
+}
+
+export interface Workflow {
+  id: string;
+  name: string;
+  nodes: FlowNode[];
+}
+
+export const automationContent = {
+  eyebrow: "Automation Lab",
+  title: "I automate the boring parts.",
+  subtitle:
+    "With n8n, I wire your tools, APIs, and AI models into pipelines that run on their own — no manual work, no dropped tasks.",
+  capabilities: [
+    {
+      title: "Connect anything",
+      description: "APIs, webhooks, databases, and SaaS tools, stitched together.",
+    },
+    {
+      title: "AI in the loop",
+      description: "LLM steps that summarize, classify, and decide inside the flow.",
+    },
+    {
+      title: "Runs itself",
+      description: "Scheduled or event-driven, with retries and logging built in.",
+    },
+  ],
+  note: "Example flows — swap in your own.",
+  workflows: [
+    {
+      id: "content",
+      name: "Content pipeline",
+      nodes: [
+        { type: "trigger", label: "New upload", note: "A new video is published" },
+        { type: "ai", label: "AI summary", note: "Generate title, description & chapters" },
+        { type: "transform", label: "Format", note: "Build captions and social posts" },
+        { type: "action", label: "Publish", note: "Post to socials & update the sheet" },
+        { type: "notify", label: "Notify", note: "Ping me when it's live" },
+      ],
+    },
+    {
+      id: "leads",
+      name: "Lead capture",
+      nodes: [
+        { type: "trigger", label: "Form submit", note: "Webhook from a landing page" },
+        { type: "filter", label: "Qualify", note: "Filter by intent & fields" },
+        { type: "http", label: "Enrich", note: "Look up company & contact data" },
+        { type: "action", label: "Save to CRM", note: "Create or update the record" },
+        { type: "notify", label: "Alert", note: "Notify the team instantly" },
+      ],
+    },
+    {
+      id: "ai",
+      name: "AI enrichment",
+      nodes: [
+        { type: "trigger", label: "Schedule", note: "Runs on a fixed cadence" },
+        { type: "http", label: "Fetch", note: "Pull data from an API" },
+        { type: "ai", label: "Analyze", note: "An LLM extracts insights" },
+        { type: "filter", label: "Decide", note: "Branch on confidence" },
+        { type: "action", label: "Update", note: "Write the results back" },
+      ],
+    },
+  ] as Workflow[],
+};
+
 /* -------------------- Revyon AI Studio (§6) -------------------- */
 
 export type CapabilityKey = "commercials" | "branding" | "motion" | "cgi";

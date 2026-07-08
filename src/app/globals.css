@@ -159,6 +159,36 @@ html.lenis {
   letter-spacing: -0.02em;
 }
 
+/* Automation workflow: packets travelling along connectors */
+@keyframes flow-dot-x {
+  from {
+    left: -3px;
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  to {
+    left: 100%;
+    opacity: 0;
+  }
+}
+@keyframes flow-dot-y {
+  from {
+    top: -3px;
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  to {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
 /* Film-grain overlay (feTurbulence) */
 .hero-grain {
   position: absolute;
