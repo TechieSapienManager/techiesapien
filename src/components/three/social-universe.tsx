@@ -17,7 +17,7 @@ function OrbitRing({ radius }: { radius: number }) {
     return pts;
   }, [radius]);
 
-  return <Line points={points} color="#3e7bfa" transparent opacity={0.14} />;
+  return <Line points={points} color="#1e63e9" transparent opacity={0.14} />;
 }
 
 function Planet({ planet, index }: { planet: SocialPlanet; index: number }) {
@@ -53,8 +53,18 @@ function Planet({ planet, index }: { planet: SocialPlanet; index: number }) {
           data-cursor-hover
           className="glass flex -translate-x-1/2 translate-y-6 flex-col items-center gap-0.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-center transition-colors hover:border-electric"
         >
-          <span className="text-[11px] font-semibold text-foreground">
-            {planet.label}
+          <span className="flex items-center gap-1.5">
+            <span className="text-[11px] font-semibold text-foreground">
+              {planet.label}
+            </span>
+            {planet.count && (
+              <span
+                className="text-[11px] font-semibold"
+                style={{ color: planet.color }}
+              >
+                {planet.count}
+              </span>
+            )}
           </span>
           <span className="text-[9px] text-muted">{planet.handle}</span>
         </a>
@@ -73,7 +83,7 @@ function Sun() {
       <sphereGeometry args={[1, 48, 48]} />
       <meshStandardMaterial
         color="#f5f7fb"
-        emissive="#3e7bfa"
+        emissive="#1e63e9"
         emissiveIntensity={1.1}
         roughness={0.2}
       />

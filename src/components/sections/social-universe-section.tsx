@@ -17,8 +17,8 @@ export function SocialUniverseSection() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Social Universe"
-          title="Find me in orbit."
-          description="Every planet is a channel — click one to connect."
+          title="Orbiting the whole internet."
+          description="145K+ followers across seven platforms — tap a planet to land on it."
           align="center"
           className="mx-auto"
         />
@@ -29,12 +29,16 @@ export function SocialUniverseSection() {
             <div className="flex h-full w-full items-center justify-center">
               <div className="flex flex-wrap justify-center gap-3 px-6">
                 {socialPlanets.map((p) => (
-                  <span
+                  <a
                     key={p.id}
-                    className="glass rounded-full px-4 py-2 text-xs text-muted"
+                    href={p.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="glass rounded-full px-4 py-2 text-xs text-muted transition-colors hover:text-foreground"
                   >
                     {p.label}
-                  </span>
+                    {p.count ? ` · ${p.count}` : ""}
+                  </a>
                 ))}
               </div>
             </div>
