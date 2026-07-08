@@ -6,7 +6,7 @@ import { Content } from "@/components/sections/Content";
 import { Revyon } from "@/components/sections/Revyon";
 import { AutomationLab } from "@/components/sections/AutomationLab";
 import { Services } from "@/components/sections/Services";
-import { AchievementsTimeline } from "@/components/sections/achievements-timeline";
+import { Timeline } from "@/components/sections/Timeline";
 import { SocialUniverseSection } from "@/components/sections/social-universe-section";
 import { ContactTerminal } from "@/components/sections/contact-terminal";
 
@@ -21,7 +21,7 @@ export default function Home() {
       <Revyon />
       <AutomationLab />
       <Services />
-      <AchievementsTimeline />
+      <Timeline />
       <SocialUniverseSection />
       <ContactTerminal />
     </>

@@ -318,6 +318,52 @@ export const alsoOn: { id: PlatformId; name: string; url: string }[] = [
   { id: "github", name: "GitHub", url: socials.github },
 ];
 
+/* -------------------- Timeline (§8) -------------------- */
+
+export interface Milestone {
+  period: string;
+  title: string;
+  description: string;
+  tag: string;
+}
+
+export const timelineContent = {
+  eyebrow: "Timeline",
+  title: "How it happened.",
+  subtitle: "The real story so far — from a first upload to a 145K+ audience.",
+};
+
+export const milestones: Milestone[] = [
+  {
+    period: "Late 2023",
+    title: "The journey begins",
+    description:
+      "Started Techie Sapien and began creating AI & tech content (joined X and Discord around October 2023).",
+    tag: "Origin",
+  },
+  {
+    period: "2024",
+    title: "Growth & first app",
+    description:
+      "Grew across YouTube and Instagram, and shipped Scanline QR to Google Play.",
+    tag: "Building",
+  },
+  {
+    period: "2025 – 2026",
+    title: "Apps, studio & SaaS",
+    description:
+      "Launched CommitFlow AI, founded Revyon AI Studio, and started building Logo Match Cut.",
+    tag: "Scaling",
+  },
+  {
+    period: "Now",
+    title: "AI creative & 1B+ views",
+    description:
+      "Creating AI visuals and ads for Brava Studio — 122K YouTube subscribers, 145K+ followers, and 1B+ views.",
+    tag: "Present",
+  },
+];
+
 /* -------------------- Services (§7) -------------------- */
 
 export type ServiceKey =
