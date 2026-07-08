@@ -318,6 +318,75 @@ export const alsoOn: { id: PlatformId; name: string; url: string }[] = [
   { id: "github", name: "GitHub", url: socials.github },
 ];
 
+/* -------------------- Services (§7) -------------------- */
+
+export type ServiceKey =
+  | "android"
+  | "web"
+  | "landing"
+  | "automation"
+  | "ai"
+  | "design";
+
+export interface Service {
+  key: ServiceKey;
+  title: string;
+  description: string;
+  tag: string;
+}
+
+export const servicesContent = {
+  eyebrow: "Services",
+  title: "How I can help.",
+  subtitle:
+    "What I can actually deliver — apps, web products, automations, and AI creative. Real capabilities, honestly scoped.",
+};
+
+export const services: Service[] = [
+  {
+    key: "android",
+    title: "Android App Development",
+    description:
+      "Real apps shipped to the Play Store — designed, built, and released end to end.",
+    tag: "Flutter",
+  },
+  {
+    key: "web",
+    title: "Web Apps & SaaS",
+    description:
+      "Full web products, from idea to deploy — currently building Logo Match Cut.",
+    tag: "SaaS",
+  },
+  {
+    key: "landing",
+    title: "Landing Pages",
+    description:
+      "Animated, high-converting landing pages with award-level polish.",
+    tag: "Animated",
+  },
+  {
+    key: "automation",
+    title: "Automation Workflows",
+    description:
+      "Connecting your tools and removing manual work with resilient pipelines.",
+    tag: "n8n",
+  },
+  {
+    key: "ai",
+    title: "AI Creative",
+    description:
+      "AI ads, commercials, product visuals, CGI, and motion design via Revyon AI Studio.",
+    tag: "Revyon AI Studio",
+  },
+  {
+    key: "design",
+    title: "App & UI Design",
+    description:
+      "Product and interface design that makes complex tools feel effortless.",
+    tag: "Figma",
+  },
+];
+
 /* -------------------- Automation Lab (§7) -------------------- */
 
 export type FlowNodeType =
