@@ -53,7 +53,11 @@ export const metadata: Metadata = {
     images: [heroContent.image.src],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/avatar.png", type: "image/png" },
+      { url: "/favicon.ico" },
+    ],
+    apple: "/avatar.png",
   },
 };
 
