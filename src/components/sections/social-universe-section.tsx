@@ -23,9 +23,20 @@ export function SocialUniverseSection() {
           className="mx-auto"
         />
 
-        <LazyMount
-          className="relative mt-16 h-[500px] w-full overflow-hidden rounded-3xl border border-border sm:h-[580px]"
-          fallback={
+        <div className="relative mt-10">
+          {/* Soft dark "space" backdrop that fades out (no hard frame), so the
+              orbit reads as space in both light and dark themes. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 72% 68% at 50% 46%, #04050b 0%, rgba(4,5,11,0.72) 46%, transparent 72%)",
+            }}
+          />
+          <LazyMount
+            className="relative h-[520px] w-full sm:h-[600px]"
+            fallback={
             <div className="flex h-full w-full items-center justify-center">
               <div className="flex flex-wrap justify-center gap-3 px-6">
                 {socialPlanets.map((p) => (
@@ -43,9 +54,10 @@ export function SocialUniverseSection() {
               </div>
             </div>
           }
-        >
-          <SocialUniverse className="h-full w-full" />
-        </LazyMount>
+          >
+            <SocialUniverse className="h-full w-full" />
+          </LazyMount>
+        </div>
       </div>
     </section>
   );

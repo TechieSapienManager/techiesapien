@@ -122,7 +122,7 @@ export function Hero() {
           x: gridX,
           y: gridY,
           backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.09) 1px, transparent 1px)",
+            "radial-gradient(circle, var(--border-strong) 1px, transparent 1px)",
           backgroundSize: "30px 30px",
           maskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, black, transparent 75%)",
           WebkitMaskImage:
@@ -162,7 +162,8 @@ export function Hero() {
                   {i === heroContent.headlineLines.length - 1 ? (
                     <span
                       style={{
-                        background: "linear-gradient(100deg, #f5f7fa 30%, var(--brand-2) 90%)",
+                        background:
+                          "linear-gradient(100deg, var(--gradient-start) 25%, var(--brand) 92%)",
                         WebkitBackgroundClip: "text",
                         backgroundClip: "text",
                         color: "transparent",

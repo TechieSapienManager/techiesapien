@@ -113,7 +113,7 @@ function AppCard({ app, index }: { app: AppProject; index: number }) {
                 target="_blank"
                 rel="noreferrer noopener"
                 data-cursor-hover
-                className="inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-xs font-semibold text-background transition-colors hover:bg-white"
+                className="inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-xs font-semibold text-background transition-opacity hover:opacity-90"
               >
                 <Play size={13} className="fill-current" />
                 Get it on Google Play
@@ -166,7 +166,7 @@ function StatusBadge({
   accent: string;
 }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-border-strong bg-white/5 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-foreground/80">
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-border-strong bg-foreground/5 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-foreground/80">
       <span className="relative flex h-1.5 w-1.5">
         {live && (
           <span

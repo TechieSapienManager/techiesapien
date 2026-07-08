@@ -89,7 +89,7 @@ export function Revyon() {
               target="_blank"
               rel="noreferrer noopener"
               data-cursor-hover
-              className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition-colors hover:bg-white"
+              className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-90"
             >
               <InstagramIcon className="h-4 w-4" />
               See the work

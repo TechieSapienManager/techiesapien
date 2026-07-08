@@ -15,7 +15,7 @@ const buttonVariants = cva(
           "bg-electric text-white hover:bg-electric-2 shadow-[0_0_30px_-6px_var(--electric)]",
         outline:
           "border border-border-strong text-foreground hover:border-electric hover:text-electric bg-transparent",
-        ghost: "text-foreground hover:bg-white/5",
+        ghost: "text-foreground hover:bg-foreground/5",
         glass: "glass text-foreground hover:border-electric/50",
       },
       size: {

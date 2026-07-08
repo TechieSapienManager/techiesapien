@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { navLinks, navCta, site } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { useLenis } from "@/components/providers/smooth-scroll-provider";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -80,43 +81,48 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Right CTA */}
-        <button
-          onClick={() => navigate(navCta.href)}
-          className="group relative hidden text-sm font-medium text-foreground md:inline-block"
-          data-cursor-hover
-        >
-          {navCta.label}
-          <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-100 bg-foreground/70 transition-transform duration-300 group-hover:scale-x-0" />
-          <span
-            className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
-            style={{ background: "var(--brand)" }}
-          />
-        </button>
+        {/* Right cluster */}
+        <div className="flex items-center gap-3">
+          {/* Desktop CTA */}
+          <button
+            onClick={() => navigate(navCta.href)}
+            className="group relative hidden text-sm font-medium text-foreground md:inline-block"
+            data-cursor-hover
+          >
+            {navCta.label}
+            <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-100 bg-foreground/70 transition-transform duration-300 group-hover:scale-x-0" />
+            <span
+              className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+              style={{ background: "var(--brand)" }}
+            />
+          </button>
 
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-        >
-          <motion.span
-            animate={open ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="block h-0.5 w-6 bg-foreground"
-          />
-          <motion.span
-            animate={open ? { opacity: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.2 }}
-            className="block h-0.5 w-6 bg-foreground"
-          />
-          <motion.span
-            animate={open ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="block h-0.5 w-6 bg-foreground"
-          />
-        </button>
+          <ThemeToggle />
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+          >
+            <motion.span
+              animate={open ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="block h-0.5 w-6 bg-foreground"
+            />
+            <motion.span
+              animate={open ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.2 }}
+              className="block h-0.5 w-6 bg-foreground"
+            />
+            <motion.span
+              animate={open ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="block h-0.5 w-6 bg-foreground"
+            />
+          </button>
+        </div>
       </div>
 
       {/* Mobile fullscreen overlay */}

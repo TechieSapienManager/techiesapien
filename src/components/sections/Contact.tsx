@@ -181,7 +181,7 @@ export function Contact() {
                     target="_blank"
                     rel="noreferrer noopener"
                     data-cursor-hover
-                    className="group flex items-center gap-3 rounded-xl px-3 py-2 transition-colors hover:bg-white/5"
+                    className="group flex items-center gap-3 rounded-xl px-3 py-2 transition-colors hover:bg-foreground/5"
                   >
                     <Icon className="h-4 w-4 text-foreground/80" />
                     <span className="text-sm font-medium text-foreground">{social.label}</span>

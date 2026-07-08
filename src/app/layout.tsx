@@ -62,10 +62,16 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05060A",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#05060A" },
+    { media: "(prefers-color-scheme: light)", color: "#f6f8fc" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
+
+// Applies the stored theme before paint to avoid a flash of the wrong theme.
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');var dark=t?t!=='light':true;var c=document.documentElement.classList;c.toggle('dark',dark);c.toggle('light',!dark);}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -75,8 +81,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable} h-full antialiased dark`}
+      suppressHydrationWarning
+      className={`${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="relative min-h-full flex flex-col bg-background text-foreground">
         <SmoothScrollProvider>
           <Cursor />
