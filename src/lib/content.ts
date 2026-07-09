@@ -621,7 +621,9 @@ export const contactContent = {
  *   3. paste it below (replacing "") OR set NEXT_PUBLIC_WEB3FORMS_KEY in your
  *      deploy environment. Submissions then arrive in that inbox.
  */
-export const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
+export const web3formsKey =
+  process.env.NEXT_PUBLIC_WEB3FORMS_KEY ??
+  "948df8b9-7f94-4181-b732-ace24c0d862e";
 
 export const contactSocials: {
   id: PlatformId;
