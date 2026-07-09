@@ -52,13 +52,8 @@ export const metadata: Metadata = {
     description: site.description,
     images: [heroContent.image.src],
   },
-  icons: {
-    icon: [
-      { url: "/avatar.png", type: "image/png" },
-      { url: "/favicon.ico" },
-    ],
-    apple: "/avatar.png",
-  },
+  // Favicons are provided by the app-dir file conventions:
+  // src/app/{favicon.ico,icon.png,apple-icon.png}.
 };
 
 export const viewport: Viewport = {
