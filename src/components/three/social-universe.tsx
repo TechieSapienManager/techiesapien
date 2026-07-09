@@ -149,7 +149,7 @@ function Scene() {
     <>
       <Rig />
       <ambientLight intensity={0.35} />
-      <group scale={fit}>
+      <group scale={fit} position={[0, 1.3 * fit, 0]}>
         <CenterAvatar />
         <group ref={groupRef} rotation={[TILT, 0, 0]}>
           {socialPlanets.map((planet) => (

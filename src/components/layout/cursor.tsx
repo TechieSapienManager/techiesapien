@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 
 import { usePointerCapabilities } from "@/hooks/use-pointer-capabilities";
-import { cn } from "@/lib/utils";
 
 export function Cursor() {
   const { ready, isTouch } = usePointerCapabilities();
@@ -31,8 +30,11 @@ export function Cursor() {
       if (hidden) setHidden(false);
     };
     const over = (e: MouseEvent) => {
-      const t = e.target as HTMLElement;
-      setHovering(!!t.closest("a, button, input, textarea, [data-cursor-hover]"));
+      // e.target can be a non-Element (e.g. the document) — guard before .closest.
+      const el = e.target instanceof Element ? e.target : null;
+      setHovering(
+        !!el?.closest("a, button, input, textarea, [data-cursor-hover]")
+      );
     };
     const leave = () => setHidden(true);
 
@@ -56,22 +58,26 @@ export function Cursor() {
       className="pointer-events-none fixed left-0 top-0 z-[100]"
       style={{ opacity: hidden ? 0 : 1, transition: "opacity 0.2s" }}
     >
-      <div className="-translate-x-1/2 -translate-y-1/2">
-        <div
-          className={cn(
-            "transition-[width,height,border-radius,background-color,border-color] duration-200 ease-out",
-            !hovering && "caret-blink"
-          )}
-          style={{
-            width: hovering ? 30 : 9,
-            height: hovering ? 30 : 20,
-            borderRadius: hovering ? 9 : 2,
-            backgroundColor: hovering ? "transparent" : "var(--brand)",
-            border: hovering ? "1.5px solid var(--brand)" : "1.5px solid transparent",
-            boxShadow: hovering ? "none" : "0 0 10px -2px var(--brand)",
-          }}
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        className="transition-transform duration-150 ease-out"
+        style={{
+          transform: hovering ? "scale(1.35)" : "scale(1)",
+          transformOrigin: "4px 3px",
+          filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.35))",
+        }}
+      >
+        {/* Classic pointer arrow; tip sits at ~(4,3) = the actual pointer point */}
+        <path
+          d="M4 3 L4 20.5 L8.7 16.2 L11.6 22.5 L14.4 21.3 L11.5 15.2 L18 15.2 Z"
+          fill="var(--brand)"
+          stroke="#ffffff"
+          strokeWidth="1.3"
+          strokeLinejoin="round"
         />
-      </div>
+      </svg>
     </div>
   );
 }
