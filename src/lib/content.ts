@@ -614,6 +614,15 @@ export const contactContent = {
   status: "Available for select projects",
 };
 
+/**
+ * Web3Forms access key — powers the contact form's email delivery.
+ * Get one free in ~1 minute (no account) at https://web3forms.com:
+ *   1. Enter founder@techiesapien.com, 2. copy the access key it emails you,
+ *   3. paste it below (replacing "") OR set NEXT_PUBLIC_WEB3FORMS_KEY in your
+ *      deploy environment. Submissions then arrive in that inbox.
+ */
+export const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
+
 export const contactSocials: {
   id: PlatformId;
   label: string;

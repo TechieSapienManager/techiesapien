@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Copy, Check, MapPin, ArrowUpRight } from "lucide-react";
 
-import { contactContent, contactSocials } from "@/lib/content";
+import { contactContent, contactSocials, web3formsKey } from "@/lib/content";
 import { brandIcons } from "@/components/icons/brand-icons";
 import { SectionHeading } from "@/components/ui/section-heading";
 
@@ -17,7 +17,7 @@ const bootLines = [
   "> awaiting transmission...",
 ];
 
-type Status = "idle" | "sending" | "sent";
+type Status = "idle" | "sending" | "sent" | "error";
 
 export function Contact() {
   const [visibleLines, setVisibleLines] = useState(0);
@@ -25,7 +25,9 @@ export function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [botcheck, setBotcheck] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  const [sentName, setSentName] = useState("");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -37,18 +39,46 @@ export function Contact() {
     return () => window.clearTimeout(t);
   }, [visibleLines]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !message) return;
+    if (!name || !email || !message || status === "sending") return;
+    if (botcheck) return; // honeypot: silently drop bots
+    if (!web3formsKey) {
+      // Not configured yet — surface the direct email instead of failing quietly.
+      setStatus("error");
+      return;
+    }
+
     setStatus("sending");
-
-    const subject = encodeURIComponent(`New transmission from ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-
-    window.setTimeout(() => {
-      setStatus("sent");
-      window.location.href = `mailto:${contactContent.email}?subject=${subject}&body=${body}`;
-    }, 900);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: web3formsKey,
+          subject: `New message from ${name} — techiesapien.com`,
+          from_name: name,
+          name,
+          email,
+          message,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSentName(name.trim());
+        setStatus("sent");
+        setName("");
+        setEmail("");
+        setMessage("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   const copyEmail = async () => {
@@ -103,7 +133,31 @@ export function Contact() {
                   onSubmit={handleSubmit}
                   className="mt-6 flex flex-col gap-4"
                 >
-                  {status !== "sent" ? (
+                  {status === "sent" ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="flex flex-col gap-2"
+                    >
+                      <p className="text-electric-2">
+                        &gt; message received{" "}
+                        <span className="text-[#28c840]">✓</span>
+                      </p>
+                      <p className="text-foreground">
+                        Thanks{sentName ? `, ${sentName}` : ""} — your message
+                        landed in my inbox. I&apos;ll get back to you within 1–2
+                        days.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setStatus("idle")}
+                        data-cursor-hover
+                        className="mt-1 self-start text-xs text-muted underline-offset-4 hover:text-foreground hover:underline"
+                      >
+                        send another
+                      </button>
+                    </motion.div>
+                  ) : (
                     <>
                       <TerminalField label="name" value={name} onChange={setName} />
                       <TerminalField
@@ -114,6 +168,18 @@ export function Contact() {
                       />
                       <TerminalTextarea label="message" value={message} onChange={setMessage} />
 
+                      {/* Honeypot — hidden from humans, catches bots */}
+                      <input
+                        type="text"
+                        name="botcheck"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={botcheck}
+                        onChange={(e) => setBotcheck(e.target.value)}
+                        className="hidden"
+                        aria-hidden
+                      />
+
                       <button
                         type="submit"
                         disabled={status === "sending"}
@@ -123,17 +189,26 @@ export function Contact() {
                         {status === "sending" ? (
                           <>
                             <span className="h-1.5 w-1.5 animate-ping rounded-full bg-white" />
-                            transmitting...
+                            sending...
                           </>
                         ) : (
                           "./send_message.sh"
                         )}
                       </button>
+
+                      {status === "error" && (
+                        <p className="text-xs text-[#ff6b6b]">
+                          &gt; couldn&apos;t send that. Please email me directly at{" "}
+                          <a
+                            href={`mailto:${contactContent.email}`}
+                            className="underline underline-offset-2"
+                          >
+                            {contactContent.email}
+                          </a>
+                          .
+                        </p>
+                      )}
                     </>
-                  ) : (
-                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-electric-2">
-                      &gt; transmission complete. opening mail client...
-                    </motion.p>
                   )}
                 </motion.form>
               )}
