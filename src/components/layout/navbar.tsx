@@ -67,13 +67,13 @@ export function Navbar() {
           {site.name}
         </button>
 
-        {/* Center links */}
-        <nav className="hidden items-center gap-8 md:flex">
+        {/* Center links — single glass pill behind all four */}
+        <nav className="glass hidden items-center gap-1 rounded-full px-2 py-1.5 md:flex">
           {navLinks.map((link) => (
             <button
               key={link.href}
               onClick={() => navigate(link.href)}
-              className="text-sm font-medium text-foreground/90 transition-opacity duration-200 hover:opacity-60"
+              className="rounded-full px-4 py-1.5 text-sm font-medium text-foreground/80 transition-colors duration-200 hover:bg-foreground/5 hover:text-foreground"
               data-cursor-hover
             >
               {link.label}

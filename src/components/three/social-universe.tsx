@@ -7,6 +7,12 @@ import * as THREE from "three";
 
 import { socialPlanets, type SocialPlanet } from "@/data/social";
 
+// Scene constants shared by the fit logic.
+const R_MAX = Math.max(...socialPlanets.map((p) => p.distance)); // outermost orbit
+const CAM_Z = 16;
+const FOV = 50;
+const TILT = 0.3;
+
 function OrbitRing({ radius }: { radius: number }) {
   const points = useMemo(() => {
     const pts: [number, number, number][] = [];
@@ -51,7 +57,7 @@ function Planet({ planet, index }: { planet: SocialPlanet; index: number }) {
           target="_blank"
           rel="noreferrer noopener"
           data-cursor-hover
-          className="glass flex -translate-x-1/2 translate-y-6 flex-col items-center gap-0.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-center transition-colors hover:border-electric"
+          className="glass flex -translate-x-1/2 translate-y-4 flex-col items-center gap-0.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-center transition-colors hover:border-electric"
         >
           <span className="flex items-center gap-1.5">
             <span className="text-[11px] font-semibold text-foreground">
@@ -106,13 +112,32 @@ function CenterAvatar() {
 function Rig() {
   const { camera } = useThree();
   useEffect(() => {
-    camera.lookAt(0, -0.3, 0);
+    camera.lookAt(0, -0.15, 0);
   }, [camera]);
   return null;
 }
 
+/**
+ * Scales the whole system so the outermost orbit always fits inside the canvas,
+ * for any aspect ratio — this is what guarantees the outer planets never clip.
+ */
+function useFitScale() {
+  const { size } = useThree();
+  return useMemo(() => {
+    const aspect = size.width / Math.max(1, size.height);
+    const halfH = CAM_Z * Math.tan((FOV * Math.PI) / 360); // world half-height at z=0
+    const halfW = halfH * aspect;
+    // Fit the outermost orbit inside a safe fraction of the frustum. Horizontal
+    // is the binding constraint on wide canvases; vertical on tall/mobile ones.
+    const scaleW = (halfW * 0.7) / R_MAX;
+    const scaleH = (halfH * 0.82) / (R_MAX * Math.sin(TILT) + 1.4);
+    return Math.min(1.12, scaleW, scaleH);
+  }, [size.width, size.height]);
+}
+
 function Scene() {
   const groupRef = useRef<THREE.Group>(null);
+  const fit = useFitScale();
 
   useFrame((state) => {
     if (groupRef.current) {
@@ -124,9 +149,9 @@ function Scene() {
     <>
       <Rig />
       <ambientLight intensity={0.35} />
-      <group position={[0, 0, 0]}>
+      <group scale={fit}>
         <CenterAvatar />
-        <group ref={groupRef} rotation={[0.36, 0, 0]}>
+        <group ref={groupRef} rotation={[TILT, 0, 0]}>
           {socialPlanets.map((planet) => (
             <OrbitRing key={`ring-${planet.id}`} radius={planet.distance} />
           ))}
@@ -160,7 +185,7 @@ export function SocialUniverse({ className }: { className?: string }) {
         dpr={[1, 1.5]}
         frameloop={visible ? "always" : "never"}
         gl={{ antialias: true, powerPreference: "high-performance" }}
-        camera={{ fov: 50, position: [0, 6.5, 16] }}
+        camera={{ fov: FOV, position: [0, 6, CAM_Z] }}
       >
         <Scene />
       </Canvas>
