@@ -54,6 +54,9 @@ export const metadata: Metadata = {
   },
   // Favicons are provided by the app-dir file conventions:
   // src/app/{favicon.ico,icon.png,apple-icon.png}.
+  verification: {
+    google: "1yJZ6FXuRreImdy7WSi8AvhZ0qN-grPKebs8Xkguz2c",
+  },
 };
 
 export const viewport: Viewport = {
